@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Melodi.Networking</id>
+    <version>1.0.0</version>
+    <authors>Melodi.Networking</authors>
+    <description>A networking library</description>
+    <dependencies>
+      <group targetFramework="net5.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\melod\repos\Melodi.Networking\Melodi.Networking\bin\Debug\net5.0\Melodi.Networking.dll" target="lib\net5.0\Melodi.Networking.dll" />
+  </files>
+</package>

@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "Melodi.Networking/1.0.6": {
+        "runtime": {
+          "Melodi.Networking.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Melodi.Networking/1.0.6": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
