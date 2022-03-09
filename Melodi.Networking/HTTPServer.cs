@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -75,12 +76,12 @@ namespace Melodi.Networking
 
             defaultRequestMethods = Tp.GetMethods()
                         .Where(x => x.GetCustomAttribute<HTTPDefaultAttribute>() != null
-                            && x.ReturnType == typeof(byte[]))
+                            && x.ReturnType == typeof((byte[], string)))
                         .ToArray();
 
             requestMethods = Tp.GetMethods()
                         .Where(x => x.GetCustomAttribute<HTTPRequestAttribute>() != null
-                            && x.ReturnType == typeof(byte[]))
+                            && x.ReturnType == typeof((byte[], string)))
                         .ToArray();
 
             Running = true;
@@ -124,14 +125,23 @@ namespace Melodi.Networking
                     }).ToArray();
 
                     byte[] buffer;
+                    string contentType;
                     if (methods.Any())
-                        buffer = (byte[])methods.First().Invoke(null, new object[] { context });
+                    {
+                        var x = ((byte[], string))methods.First().Invoke(null, new object[] { context });
+                        buffer = x.Item1;
+                        contentType = x.Item2;
+                    }
                     else if (defaultMethods.Any())
-                        buffer = (byte[])defaultMethods.First().Invoke(null, new object[] { context });
+                    {
+                        var x = ((byte[], string))defaultMethods.First().Invoke(null, new object[] { context });
+                        buffer = x.Item1;
+                        contentType = x.Item2;
+                    }
                     else
                         throw new NotImplementedException($"Method for handling request {context.Request.RawUrl} was missing from {Tp.Name} class");
 
-                    context.Response.ContentType = "text/html";
+                    context.Response.ContentType = contentType;
                     context.Response.ContentLength64 = buffer.Length;
 
                     Stream output = context.Response.OutputStream;
